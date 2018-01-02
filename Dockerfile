@@ -71,12 +71,13 @@ RUN mkdir -p /usr/share/man/man1/ \
     libcap2-bin \
  && echo "deb http://www.ubnt.com/downloads/unifi/debian unifi5 ubiquiti" > /etc/apt/sources.list.d/20ubiquiti.list \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50 \
- && curl -L -o ./unifi.deb "${PKGURL}" \
- && apt -qy install ./unifi.deb \
+ && apt-get install -y wget sudo moreutils patch \
+ && wget -O /etc/apt/trusted.gpg.d/unifi-repo.gpg https://dl.ubnt.com/unifi/unifi-repo.gpg \
+ && apt-get update -y && sudo apt-get upgrade -y \
+ && apt-get install -y unifi \
  && apt-get -qy purge --auto-remove \
     dirmngr \
     gnupg \
- && rm -f ./unifi.deb \
  && chown -R unifi:unifi /usr/lib/unifi \
  && rm -rf /var/lib/apt/lists/*
 

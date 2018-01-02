@@ -128,6 +128,7 @@ UNIFI_CMD="${JSVC} -nodetach ${JSVC_OPTS} ${MAINCLASS} start"
 CUID=$(id -u)
 
 if [[ "${@}" == "unifi" ]]; then
+    apt-get install -y unifi
     # keep attached to shell so we can wait on it
     log 'Starting unifi controller service.'
     for dir in "${DATADIR}" "${LOGDIR}"; do
